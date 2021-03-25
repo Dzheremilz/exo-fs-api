@@ -2,5 +2,8 @@
   "name": "exo-fs-api",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "yargs": "^16.2.0"
+  }
 }
