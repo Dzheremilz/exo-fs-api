@@ -22,15 +22,20 @@ if (!fs.existsSync(process.argv[2 + x])) {
   process.exit(1)
 }
 
-if (!fs.statSync(process.argv[2 + x]).isFile()) {
-  console.log(`Error: ${process.argv[2 + x]} is not a file`)
-  process.exit(1)
-}
-
 let line = 0
 let word = 0
 let char = 0
 let str = ' '
+
+if (!fs.statSync(process.argv[2 + x]).isFile()) {
+  if (fs.statSync(process.argv[2 + x]).isDirectory()) {
+    console.log(`Error: ${process.argv[2 + x]}: Is a directory`)
+    console.log(`      ${line}       ${word}       ${char} ${process.argv[2 + x]}`)
+    process.exit(1)
+  }
+  console.log(`Error: ${process.argv[2 + x]} is not a file`)
+  process.exit(1)
+}
 
 let text = fs.readFileSync(process.argv[2 + x], 'utf-8')
 
