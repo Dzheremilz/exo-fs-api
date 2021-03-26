@@ -52,6 +52,14 @@ if (yargs._.length > 2 && fs.existsSync(yargs._[yargs._.length - 1]) && fs.statS
     if (yargs._[yargs._.length - 1] === '.') {
       console.log(`node cp.js: '${yargs._[i]}' and '${yargs._[yargs._.length - 1] + '/' + yargs._[i]}' are the same file`)
     } else {
+      if (!fs.existsSync(yargs._[i])) {
+        console.log(`node cp.js: ${yargs._[i]} does not exist`)
+        continue
+      }
+      if (!fs.statSync(yargs._[i]).isFile()) {
+        console.log(`node cp.js: ${yargs._[i]} is not a file`)
+        continue
+      }
       fs.copyFileSync(yargs._[i], yargs._[yargs._.length - 1] + '/' + yargs._[i].split('/').reverse()[0])
       if (yargs.v) {
         console.log(`\'${yargs._[i]}\' -> \'${yargs._[yargs._.length - 1] + '/' + yargs._[i].split('/').reverse()[0]}\'`)
