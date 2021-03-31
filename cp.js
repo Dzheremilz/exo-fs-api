@@ -60,7 +60,12 @@ if (yargs._.length > 2 && fs.existsSync(yargs._[yargs._.length - 1]) && fs.statS
         console.log(`node cp.js: ${yargs._[i]} is not a file`)
         continue
       }
-      fs.copyFileSync(yargs._[i], yargs._[yargs._.length - 1] + '/' + yargs._[i].split('/').reverse()[0])
+      try {
+        fs.copyFileSync(yargs._[i], yargs._[yargs._.length - 1] + '/' + yargs._[i].split('/').reverse()[0])
+      } catch (e) {
+        console.log(`node cp.js: ${e.message}`)
+        continue
+      }
       if (yargs.v) {
         console.log(`\'${yargs._[i]}\' -> \'${yargs._[yargs._.length - 1] + '/' + yargs._[i].split('/').reverse()[0]}\'`)
       }
